@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AUSThir',
-      theme: ThemeData.dark(),
       home: const LandingPage(),
     );
   }
