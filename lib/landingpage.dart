@@ -8,7 +8,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[800],
+      backgroundColor: Colors.blue[900],
       body: Stack(
         children: [
           Positioned(
@@ -57,8 +57,8 @@ class LandingPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[800],
-                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.blue[900],
+                          foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -82,12 +82,12 @@ class LandingPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor: Colors.blueGrey[800],
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
-                            side: const BorderSide(color: Colors.white70, width: 2),
+                            side: const BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         onPressed: () {
