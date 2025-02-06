@@ -8,15 +8,16 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[800], // Full green background
+      backgroundColor: Colors.blue[900],
       body: Stack(
         children: [
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.15, // Starts at 15% height
+            top: MediaQuery.of(context).size.height * 0.15,
             left: 0,
             right: 0,
             bottom: 0,
             child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -25,12 +26,11 @@ class SignIn extends StatelessWidget {
                 ),
               ),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       "Let's get you back in.",
                       style: TextStyle(
                         color: Colors.black,
@@ -38,72 +38,72 @@ class SignIn extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       "Welcome back.\nYou've been missed!",
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     TextField(
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Phone, email or username",
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: const TextStyle(color: Colors.black54),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.black),
+                          borderSide: const BorderSide(color: Colors.black),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextField(
                       obscureText: true,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Password",
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: const TextStyle(color: Colors.black54),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.black),
+                          borderSide: const BorderSide(color: Colors.black),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 30),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(builder: (context) =>  HomePage()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[800], // Green button
+                          backgroundColor: Colors.blueGrey[800],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(color: Colors.black, width: 2),
+                            side: const BorderSide(color: Colors.black, width: 2),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Sign In",
                           style: TextStyle(
-                            color: Colors.black, // Black text for the button
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
                       ),
                     ),
-
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: TextButton(
                         onPressed: () {
@@ -112,7 +112,7 @@ class SignIn extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => reg()),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           "Don't have an account? Register",
                           style: TextStyle(color: Colors.black),
                         ),
