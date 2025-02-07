@@ -8,9 +8,37 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[900],
+      backgroundColor: Colors.indigo[900],
       body: Stack(
         children: [
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.10,
+            left: 20,
+            right: 0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Let's get you back in.",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Welcome back.\nYou've been missed!",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
+          ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.25,
             left: 0,
@@ -29,23 +57,6 @@ class SignIn extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Let's get you back in.",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Welcome back.\nYou've been missed!",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18,
-                      ),
-                    ),
                     const SizedBox(height: 40),
                     TextField(
                       style: const TextStyle(color: Colors.black),
@@ -82,11 +93,11 @@ class SignIn extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  HomePage()),
+                            MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueGrey[800],
+                          backgroundColor: Colors.indigo[900],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: const BorderSide(color: Colors.black, width: 2),
@@ -96,9 +107,9 @@ class SignIn extends StatelessWidget {
                         child: const Text(
                           "Sign In",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 22,
                           ),
                         ),
                       ),
