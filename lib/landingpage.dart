@@ -1,6 +1,6 @@
+import 'package:austhir/splashanimation.dart';
 import 'package:flutter/material.dart';
 import 'package:austhir/reg.dart';
-import 'login.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -62,18 +62,21 @@ class LandingPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
-                            side: const BorderSide(color: Colors.black, width: 2),
+                            side:
+                                const BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => reg()),
+                            MaterialPageRoute(
+                                builder: (context) => const reg()),
                           );
                         },
                         child: const Text(
                           'Register',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -87,18 +90,21 @@ class LandingPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
-                            side: const BorderSide(color: Colors.black, width: 2),
+                            side:
+                                const BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SignIn()),
+                            MaterialPageRoute(
+                                builder: (context) => const SplashAnimation()),
                           );
                         },
                         child: const Text(
                           'Sign In',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

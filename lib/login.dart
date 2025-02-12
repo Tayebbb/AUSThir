@@ -15,9 +15,9 @@ class SignIn extends StatelessWidget {
             top: MediaQuery.of(context).size.height * 0.10,
             left: 20,
             right: 0,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   "Let's get you back in.",
                   style: TextStyle(
@@ -93,14 +93,16 @@ class SignIn extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.indigo[900],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(color: Colors.black, width: 2),
+                            side:
+                                const BorderSide(color: Colors.black, width: 2),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                         ),
@@ -120,7 +122,8 @@ class SignIn extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => reg()),
+                            MaterialPageRoute(
+                                builder: (context) => const reg()),
                           );
                         },
                         child: const Text(
