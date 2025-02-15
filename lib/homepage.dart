@@ -1,3 +1,4 @@
+import 'package:austhir/cgpacalc.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -69,9 +70,16 @@ class HomePage extends StatelessWidget {
                       onPressed: () {},
                     ),
                     SquareButton(
-                      text: 'Results',
+                      text: 'CGPA Calculator',
                       icon: Icons.grade,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const CgpaCalculatorScreen()),
+                        );
+                      },
                     ),
                   ],
                 ),

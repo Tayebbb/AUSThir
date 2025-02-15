@@ -62,8 +62,6 @@ class LandingPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
-                            side:
-                                const BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         onPressed: () {
@@ -90,8 +88,6 @@ class LandingPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
-                            side:
-                                const BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         onPressed: () {
