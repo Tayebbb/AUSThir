@@ -1,6 +1,7 @@
 import 'package:austhir/cgpacalc.dart';
 import 'package:flutter/material.dart';
-
+import 'attendance.dart';
+import 'academic_calender.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -62,12 +63,22 @@ class HomePage extends StatelessWidget {
                     SquareButton(
                       text: 'Attendance',
                       icon: Icons.check_circle,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AttendancePage()),
+                        );
+                      },
                     ),
                     SquareButton(
-                      text: 'Academic Calendar',
-                      icon: Icons.calendar_today,
-                      onPressed: () {},
+                      text: 'Academic Calender',
+                      icon: Icons.check_circle,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AcademicCalendarPage()),
+                        );
+                      },
                     ),
                     SquareButton(
                       text: 'CGPA Calculator',
