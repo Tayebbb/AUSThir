@@ -1,7 +1,7 @@
 import 'package:austhir/splashanimation.dart';
 import 'package:flutter/material.dart';
 import 'package:austhir/reg.dart';
-
+import 'package:austhir/RegisterSplash.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
@@ -68,8 +68,9 @@ class LandingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const reg()),
+                                builder: (context) => const RegisterSplash()),
                           );
+
                         },
                         child: const Text(
                           'Register',
