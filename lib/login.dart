@@ -2,8 +2,26 @@ import 'package:austhir/reg.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({super.key});
+
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void _validateAndLogin() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,85 +72,100 @@ class SignIn extends StatelessWidget {
                 ),
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 40),
-                    TextField(
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Phone, email or username",
-                        hintStyle: const TextStyle(color: Colors.black54),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      obscureText: true,
-                      style: const TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Password",
-                        hintStyle: const TextStyle(color: Colors.black54),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.indigo[900],
-                          shape: RoundedRectangleBorder(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 40),
+                      TextFormField(
+                        controller: _emailController,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Phone, email or username",
+                          hintStyle: const TextStyle(color: Colors.black54),
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side:
-                                const BorderSide(color: Colors.black, width: 2),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                        ),
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
+                            borderSide: const BorderSide(color: Colors.black),
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const reg()),
-                          );
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+").hasMatch(value)) {
+                            return 'Enter a valid email address';
+                          }
+                          return null;
                         },
-                        child: const Text(
-                          "Don't have an account? Register",
-                          style: TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Password",
+                          hintStyle: const TextStyle(color: Colors.black54),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _validateAndLogin,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.indigo[900],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(color: Colors.black, width: 2),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                          ),
+                          child: const Text(
+                            "Sign In",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const reg()),
+                            );
+                          },
+                          child: const Text(
+                            "Don't have an account? Register",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
