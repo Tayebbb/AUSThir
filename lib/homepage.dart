@@ -1,206 +1,159 @@
-import 'package:austhir/cgpacalc.dart';
 import 'package:flutter/material.dart';
+import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        leading: const BackButton(color: Colors.white),
-      ),
-      body: Container(
-        color: Colors.black,
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'Welcome to the Home Page',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  'Explore the features below by clicking on the buttons.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 40),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 30,
-                  crossAxisSpacing: 30,
-                  padding: const EdgeInsets.all(20),
+      backgroundColor: Colors.indigo[900],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.25,
+              color: Colors.indigo[900],
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareButton(
-                      text: 'News',
-                      icon: Icons.newspaper,
-                      onPressed: () {},
+                    SizedBox(height: 70),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
                     ),
-                    SquareButton(
-                      text: 'Attendance',
-                      icon: Icons.check_circle,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AttendancePage()),
-                        );
-                      },
+                    SizedBox(height: 10),
+                    Text(
+                      'ENID HASAN',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
-                    SquareButton(
-                      text: 'Academic Calender',
-                      icon: Icons.check_circle,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AcademicCalendarPage()),
-                        );
-                      },
+                    Text(
+                      'Student ID: 20230104047',
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
-                    SquareButton(
-                      text: 'CGPA Calculator',
-                      icon: Icons.grade,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const CgpaCalculatorScreen()),
-                        );
-                      },
+                    Text(
+                      'From Semester: Spring 2024',
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
-                  'Each section above offers quick access to important information for students.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+            ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
                   ),
-                  textAlign: TextAlign.center,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            const SizedBox(height: 16),
+                            GridView.count(
+                              crossAxisCount: 2,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              mainAxisSpacing: 30,
+                              crossAxisSpacing: 30,
+                              children: [
+                                SquareButton(text: 'News', icon: Icons.newspaper, onPressed: () {}),
+                                SquareButton(text: 'Attendance', icon: Icons.check_circle, onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AttendancePage()));
+                                }),
+                                SquareButton(text: 'Academic Calendar', icon: Icons.calendar_today, onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AcademicCalendarPage()));
+                                }),
+                                SquareButton(text: 'CGPA Calculator', icon: Icons.calculate, onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalculatorScreen()));
+                                }),
+                                SquareButton(text: 'Materials', icon: Icons.book, onPressed: () {}),
+                                SquareButton(text: 'FAQ', icon: Icons.help, onPressed: () {}),
+                                SquareButton(text: 'Finance', icon: Icons.attach_money, onPressed: () {}),
+                                SquareButton(text: 'Library', icon: Icons.library_books, onPressed: () {}),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  '© 2025 All rights reserved',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white70,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            Container(
+              color: Colors.grey[800], // Gray color for the bottom bar
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Icon(Icons.home, color: Colors.white),
+                  Icon(Icons.school, color: Colors.white),
+                  Icon(Icons.notifications, color: Colors.white),
+                  Icon(Icons.person, color: Colors.white),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class SquareButton extends StatefulWidget {
+class SquareButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
   final IconData icon;
+  final VoidCallback onPressed;
 
-  const SquareButton(
-      {super.key,
-      required this.text,
-      required this.onPressed,
-      required this.icon});
-
-  @override
-  _SquareButtonState createState() => _SquareButtonState();
-}
-
-class _SquareButtonState extends State<SquareButton> {
-  bool _isPressed = false;
+  const SquareButton({super.key, required this.text, required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _isPressed = false;
-        });
-        widget.onPressed();
-      },
-      onTapCancel: () {
-        setState(() {
-          _isPressed = false;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        width: 150,
-        height: 150,
+      onTap: onPressed,
+      child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.indigo[900], // Gray color for the button
           borderRadius: BorderRadius.circular(15),
-          boxShadow: _isPressed
-              ? []
-              : [
-                  BoxShadow(
-                    color: Colors.blueAccent.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
+          border: Border.all(color: Colors.black, width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 5,
+              offset: Offset(0, 5),
+            ),
+          ],
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                widget.icon,
-                size: 40,
-                color: Colors.black,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.text,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: Colors.white),
+            const SizedBox(height: 8),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 16, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
