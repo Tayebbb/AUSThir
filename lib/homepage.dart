@@ -33,7 +33,10 @@ class HomePage extends StatelessWidget {
                     SizedBox(height: 10),
                     Text(
                       'ENID HASAN',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     Text(
                       'Student ID: 20230104047',
@@ -73,20 +76,56 @@ class HomePage extends StatelessWidget {
                               mainAxisSpacing: 30,
                               crossAxisSpacing: 30,
                               children: [
-                                SquareButton(text: 'News', icon: Icons.newspaper, onPressed: () {}),
-                                SquareButton(text: 'Attendance', icon: Icons.check_circle, onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AttendancePage()));
-                                }),
-                                SquareButton(text: 'Academic Calendar', icon: Icons.calendar_today, onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AcademicCalendarPage()));
-                                }),
-                                SquareButton(text: 'CGPA Calculator', icon: Icons.calculate, onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalculatorScreen()));
-                                }),
-                                SquareButton(text: 'Materials', icon: Icons.book, onPressed: () {}),
-                                SquareButton(text: 'FAQ', icon: Icons.help, onPressed: () {}),
-                                SquareButton(text: 'Finance', icon: Icons.attach_money, onPressed: () {}),
-                                SquareButton(text: 'Library', icon: Icons.library_books, onPressed: () {}),
+                                SquareButton(
+                                    text: 'News',
+                                    icon: Icons.newspaper,
+                                    onPressed: () {}),
+                                SquareButton(
+                                    text: 'Attendance',
+                                    icon: Icons.check_circle,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AttendancePage()));
+                                    }),
+                                SquareButton(
+                                    text: 'Academic Calendar',
+                                    icon: Icons.calendar_today,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AcademicCalendarPage()));
+                                    }),
+                                SquareButton(
+                                    text: 'CGPA Calculator',
+                                    icon: Icons.calculate,
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const CgpaCalculatorScreen()));
+                                    }),
+                                SquareButton(
+                                    text: 'Materials',
+                                    icon: Icons.book,
+                                    onPressed: () {}),
+                                SquareButton(
+                                    text: 'FAQ',
+                                    icon: Icons.help,
+                                    onPressed: () {}),
+                                SquareButton(
+                                    text: 'Finance',
+                                    icon: Icons.attach_money,
+                                    onPressed: () {}),
+                                SquareButton(
+                                    text: 'Library',
+                                    icon: Icons.library_books,
+                                    onPressed: () {}),
                               ],
                             ),
                           ],
@@ -123,7 +162,11 @@ class SquareButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
 
-  const SquareButton({super.key, required this.text, required this.icon, required this.onPressed});
+  const SquareButton(
+      {super.key,
+      required this.text,
+      required this.icon,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

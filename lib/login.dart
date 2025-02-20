@@ -84,7 +84,7 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Phone, email or username",
+                          hintText: "AUST Email (example@aust.edu)",
                           hintStyle: const TextStyle(color: Colors.black54),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -95,8 +95,9 @@ class _SignInState extends State<SignIn> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+").hasMatch(value)) {
-                            return 'Enter a valid email address';
+                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@aust\.edu$")
+                              .hasMatch(value)) {
+                            return 'Enter a valid AUST email address (example@aust.edu)';
                           }
                           return null;
                         },
@@ -135,7 +136,8 @@ class _SignInState extends State<SignIn> {
                             backgroundColor: Colors.indigo[900],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.black, width: 2),
+                              side: const BorderSide(
+                                  color: Colors.black, width: 2),
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                           ),
@@ -155,7 +157,8 @@ class _SignInState extends State<SignIn> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const reg()),
+                              MaterialPageRoute(
+                                  builder: (context) => const reg()),
                             );
                           },
                           child: const Text(
