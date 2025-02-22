@@ -1,2 +1,1 @@
-hehe hihi huhu
-i got u bro
+chill bro
