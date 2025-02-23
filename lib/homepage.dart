@@ -33,14 +33,14 @@ class HomePage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'ENID HASAN',
+                      'Saidul Islam Shehab',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
                     Text(
-                      'Student ID: 20230104047',
+                      'Student ID: 20230104049',
                       style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
                     Text(
