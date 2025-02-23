@@ -1,3 +1,4 @@
+import 'package:austhir/FAQScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
@@ -117,7 +118,13 @@ class HomePage extends StatelessWidget {
                                 SquareButton(
                                     text: 'FAQ',
                                     icon: Icons.help,
-                                    onPressed: () {}),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                              FAQScreen()));
+                                    }),
                                 SquareButton(
                                     text: 'Finance',
                                     icon: Icons.attach_money,
