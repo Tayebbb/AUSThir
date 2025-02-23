@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "57325847678",
+    "project_id": "austmaster-c4b72",
+    "storage_bucket": "austmaster-c4b72.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57325847678:android:b048a06c0fb8500a4b042f",
+        "android_client_info": {
+          "package_name": "com.example.austhir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaQyih0dUqU276oj6amrVpIpxzNnKm_vQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
