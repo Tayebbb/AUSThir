@@ -1,7 +1,6 @@
-import 'package:austhir/reg.dart';
 import 'package:flutter/material.dart';
 import 'AuthService.dart';
-import 'homepage.dart';
+import 'reg.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -35,7 +34,7 @@ class _SignInState extends State<SignIn> {
             top: MediaQuery.of(context).size.height * 0.10,
             left: 20,
             right: 0,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -44,15 +43,29 @@ class _SignInState extends State<SignIn> {
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black.withOpacity(0.5),
+                        offset: const Offset(2.0, 2.0),
+                      ),
+                    ],
                   ),
                   textAlign: TextAlign.left,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   "Welcome back.\nYou've been missed!",
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 18,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 5.0,
+                        color: Colors.black.withOpacity(0.5),
+                        offset: const Offset(2.0, 2.0),
+                      ),
+                    ],
                   ),
                   textAlign: TextAlign.left,
                 ),
@@ -66,12 +79,20 @@ class _SignInState extends State<SignIn> {
             bottom: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
               child: SingleChildScrollView(
                 child: Form(
@@ -85,20 +106,20 @@ class _SignInState extends State<SignIn> {
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.grey[200],
                           hintText: "AUST Email (example@aust.edu)",
                           hintStyle: const TextStyle(color: Colors.black54),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
                           ),
+                          prefixIcon: const Icon(Icons.email, color: Colors.indigo),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@aust\.edu$")
-                              .hasMatch(value)) {
+                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@aust\.edu$").hasMatch(value)) {
                             return 'Enter a valid AUST email address (example@aust.edu)';
                           }
                           return null;
@@ -111,13 +132,14 @@ class _SignInState extends State<SignIn> {
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.grey[200],
                           hintText: "Password",
                           hintStyle: const TextStyle(color: Colors.black54),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
                           ),
+                          prefixIcon: const Icon(Icons.lock, color: Colors.indigo),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -130,25 +152,27 @@ class _SignInState extends State<SignIn> {
                         },
                       ),
                       const SizedBox(height: 30),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _validateAndLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.indigo[900],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(
-                                  color: Colors.black, width: 2),
+                      Center(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: ElevatedButton(
+                            onPressed: _validateAndLogin,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.indigo[900],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              elevation: 5,
+                              shadowColor: Colors.indigo.withOpacity(0.5),
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                          ),
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),
@@ -160,7 +184,7 @@ class _SignInState extends State<SignIn> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const reg()),
+                                  builder: (context) => const Reg()),
                             );
                           },
                           child: const Text(

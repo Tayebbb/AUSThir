@@ -18,7 +18,7 @@ class _RegisterSplashState extends State<RegisterSplash> {
     // Wait for the animation to complete (after 3 seconds)
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const reg()), // Go to reg.dart after animation
+        MaterialPageRoute(builder: (context) => const Reg()), // Go to reg.dart after animation
       );
     });
   }

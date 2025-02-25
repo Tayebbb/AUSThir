@@ -1,13 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'homepage.dart';
 
+// class UserModel {
+//   late final String name;
+//   final String stud
+// }
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Sign in function
-  Future<void> signInUser(
-      {required String email, required String password, required BuildContext context}) async {
+  Future<void> signInUser({required String email, required String password, required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
@@ -25,6 +31,46 @@ class AuthService {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
+      );
+    }
+  }
+
+  // Sign up function
+  Future<void> signUpUser({
+    required String email,
+    required String password,
+    required String name,
+    required String studentId,
+    required String phone,
+    required BuildContext context,
+  }) async {
+    try {
+      print('Creating user with email: $email'); // Debug log
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password
+      );
+      print('User created: ${userCredential.user!.uid}'); // Debug log
+
+      // Store user data in Firestore
+      await _firestore.collection('austhir').doc(userCredential.user!.uid).set({
+        'uid': userCredential.user!.uid,
+        'name': name,
+        'studentId': studentId,
+        'eduMail': email,
+        'phone': phone,
+        'createdAt': Timestamp.now(),
+      });
+      print('User data stored in Firestore'); // Debug log
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Account created successfully!')),
+      );
+    } catch (e) {
+      print('Error during sign-up: $e'); // Debug log
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
       );
     }
   }

@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'AuthService.dart';
+import 'login.dart';
+import 'homepage.dart';  // Import the HomePage
 
-// ignore: camel_case_types
-class reg extends StatefulWidget {
-  const reg({super.key});
+class Reg extends StatefulWidget {
+  const Reg({super.key});
 
   @override
-  _regState createState() => _regState();
+  _RegState createState() => _RegState();
 }
 
-class _regState extends State<reg> {
+class _RegState extends State<Reg> {
   bool isChecked = false;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController studentidController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,  // Set background color to white
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -22,30 +30,20 @@ class _regState extends State<reg> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.indigo), // Indigo color for icon
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
                 const Text(
                   "Let's create your account",
                   style: TextStyle(
-                    color: Colors.indigo, // Indigo color for text
+                    color: Colors.indigo,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 24),
-                _buildTextField(Icons.person, 'First Name'),
-                _buildTextField(Icons.person, 'Last Name'),
-                _buildTextField(Icons.account_circle, 'Username'),
-                _buildTextField(Icons.email, 'Edu-Mail'),
-                _buildTextField(Icons.phone, 'Phone Number'),
-                _buildTextField(Icons.lock, 'Password', isPassword: true),
+                _buildTextField(Icons.person, 'Name', nameController),
+                _buildTextField(Icons.account_circle, 'Student Id', studentidController),
+                _buildTextField(Icons.email, 'Edu-Mail', emailController),
+                _buildTextField(Icons.phone, 'Phone Number', phoneController),
+                _buildTextField(Icons.lock, 'Password', passwordController, isPassword: true),
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -57,51 +55,67 @@ class _regState extends State<reg> {
                           isChecked = value!;
                         });
                       },
-                      checkColor: Colors.white,  // White color for checkmark
-                      fillColor: MaterialStateProperty.all(Colors.indigo), // Indigo checkbox fill color
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.all(Colors.indigo),
                     ),
-                    const Text(
-                      'I agree to ',
-                      style: TextStyle(color: Colors.black), // Black color for text
-                    ),
+                    const Text('I agree to ', style: TextStyle(color: Colors.black)),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        'Privacy Policy',
-                        style: TextStyle(color: Colors.indigo), // Indigo color for links
-                      ),
+                      child: const Text('Privacy Policy', style: TextStyle(color: Colors.indigo)),
                     ),
-                    const Text(
-                      ' and ',
-                      style: TextStyle(color: Colors.black), // Black color for text
-                    ),
+                    const Text(' and ', style: TextStyle(color: Colors.black)),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        'Terms of use',
-                        style: TextStyle(color: Colors.indigo), // Indigo color for links
-                      ),
+                      child: const Text('Terms of use', style: TextStyle(color: Colors.indigo)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: isChecked
+                      ? () async {
+                    if (nameController.text.isEmpty ||
+                        studentidController.text.isEmpty ||
+                        emailController.text.isEmpty ||
+                        phoneController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please fill all fields')),
+                      );
+                      return;
+                    }
+
+                    // Call signUpUser and wait for the result
+                    await _authService.signUpUser(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                      name: nameController.text.trim(),
+                      studentId: studentidController.text.trim(),
+                      phone: phoneController.text.trim(),
+                      context: context,
+                    );
+
+                    // If successful, navigate to the HomePage
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }
+                      : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.indigo, // Indigo background for the button
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
+                    backgroundColor: Colors.indigo,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     textStyle: const TextStyle(fontSize: 16),
                   ),
                   child: const Text(
                     'Create Account',
-                    style: TextStyle(color: Colors.white), // White text for the button
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   'Or Sign Up With',
-                  style: TextStyle(color: Colors.black54), // Slightly dark text
+                  style: TextStyle(color: Colors.black54),
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -130,6 +144,31 @@ class _regState extends State<reg> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 16),
+                // Added "Have an account? Sign In" button
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignIn()),
+                    );
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      children: [
+                        const TextSpan(
+                          text: "Have an account? ",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const TextSpan(
+                          text: "Sign In",
+                          style: TextStyle(color: Colors.indigo),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -138,19 +177,19 @@ class _regState extends State<reg> {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hintText,
-      {bool isPassword = false}) {
+  Widget _buildTextField(IconData icon, String hintText, TextEditingController controller, {bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
+        controller: controller,
         obscureText: isPassword,
-        style: const TextStyle(color: Colors.black), // Black text for text fields
+        style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.indigo), // Indigo icon color
+          prefixIcon: Icon(icon, color: Colors.indigo),
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.indigo), // Indigo hint text color
+          hintStyle: const TextStyle(color: Colors.indigo),
           filled: true,
-          fillColor: Colors.indigo[50], // Light indigo fill color for the text field
+          fillColor: Colors.indigo[50],
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),
             borderSide: BorderSide.none,
