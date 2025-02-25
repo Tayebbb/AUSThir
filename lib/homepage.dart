@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
