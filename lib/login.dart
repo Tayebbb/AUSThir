@@ -1,5 +1,6 @@
 import 'package:austhir/reg.dart';
 import 'package:flutter/material.dart';
+import 'AuthService.dart';
 import 'homepage.dart';
 
 class SignIn extends StatefulWidget {
@@ -16,9 +17,10 @@ class _SignInState extends State<SignIn> {
 
   void _validateAndLogin() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+      AuthService().signInUser(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        context: context,
       );
     }
   }
