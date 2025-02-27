@@ -4,6 +4,7 @@ import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'finance.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -129,7 +130,13 @@ class HomePage extends StatelessWidget {
                                 SquareButton(
                                     text: 'Finance',
                                     icon: Icons.attach_money,
-                                    onPressed: () {}),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const FinancePage()));
+                                    }),
+
                                 SquareButton(
                                     text: 'Library',
                                     icon: Icons.library_books,
