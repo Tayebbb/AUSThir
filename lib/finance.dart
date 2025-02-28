@@ -9,30 +9,22 @@ class FinancePage extends StatelessWidget {
       backgroundColor: Colors.indigo[900],
       body: Column(
         children: [
-          // Payments Title in Dark Blue (Like CGPA CALCULATOR Style)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: const BoxDecoration(
-              color: Color(0xFF0A1F44), // Dark Blue
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              ),
-            ),
-            child: const Center(
-              child: Text(
-                "PAYMENTS",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
+      SafeArea(
+      child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Center(
+        child: Text(
+          "PAYMENTS",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0,
           ),
-
+        ),
+      ),
+    ),
+    ),
           const SizedBox(height: 20),
 
           // Payment List
@@ -120,3 +112,4 @@ class FinancePage extends StatelessWidget {
     );
   }
 }
+
