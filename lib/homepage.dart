@@ -5,6 +5,7 @@ import 'attendance.dart';
 import 'academic_calender.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'finance.dart';
+import 'materials.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -116,7 +117,12 @@ class HomePage extends StatelessWidget {
                                 SquareButton(
                                     text: 'Materials',
                                     icon: Icons.book,
-                                    onPressed: () {}),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const Materials()),
+                                      );
+                                    }),
                                 SquareButton(
                                     text: 'FAQ',
                                     icon: Icons.help,
