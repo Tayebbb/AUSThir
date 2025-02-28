@@ -48,14 +48,102 @@ class Materials extends StatelessWidget {
                     mainAxisSpacing: 30,
                     crossAxisSpacing: 30,
                     children: [
-                      SquareButton(text: '1.1', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '1.2', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '2.1', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '2.2', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '3.1', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '3.2', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '4.1', icon: Icons.book, onPressed: () {}),
-                      SquareButton(text: '4.2', icon: Icons.book, onPressed: () {}),
+                      SquareButton(
+                        text: '1.1',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '1.1.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '1.2',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '1.2.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '2.1',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '2.1.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '2.2',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '2.2.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '3.1',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '3.1.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '3.2',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '3.2.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '4.1',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '4.1.png'),
+                            ),
+                          );
+                        },
+                      ),
+                      SquareButton(
+                        text: '4.2',
+                        icon: Icons.book,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageScreen(imageName: '4.2.png'),
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -110,6 +198,30 @@ class SquareButton extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ImageScreen extends StatelessWidget {
+  final String imageName;
+
+  const ImageScreen({super.key, required this.imageName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.indigo[900],
+      appBar: AppBar(
+        backgroundColor: Colors.indigo[900],
+        title: Text(imageName),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Center(
+        child: Image.asset('assets/$imageName'), // Assuming the image is in the assets/
       ),
     );
   }
