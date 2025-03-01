@@ -211,17 +211,17 @@ class ImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[900],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.indigo[900],
-        title: Text(imageName),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+        backgroundColor: Colors.white, 
+        title: Text(imageName, style: TextStyle(color: Colors.black)),
+        iconTheme: IconThemeData(color: Colors.black), 
+        elevation: 0, 
       ),
       body: Center(
-        child: Image.asset('assets/$imageName'), // Assuming the image is in the assets/
+        child: InteractiveViewer( 
+          child: Image.asset('assets/$imageName'),
+        ),
       ),
     );
   }
