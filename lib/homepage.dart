@@ -1,3 +1,4 @@
+import 'package:austhir/library.dart';
 import 'package:flutter/material.dart';
 import 'package:austhir/faqScreen.dart';
 import 'package:austhir/cgpacalc.dart';
@@ -153,7 +154,10 @@ class HomePage extends StatelessWidget {
                           _buildGridItem(context, Icons.attach_money, 'Finance',
                               () => _navigate(context, const FinancePage())),
                           _buildGridItem(
-                              context, Icons.library_books, 'Library', () {}),
+                              context,
+                              Icons.library_books,
+                              'Library',
+                              () => _navigate(context, LibraryPage())),
                         ],
                       ),
                     ),
