@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:flutter/services.dart';
 
 class LibraryPage extends StatefulWidget {
+  const LibraryPage({super.key});
+
   @override
   _LibraryPageState createState() => _LibraryPageState();
 }
@@ -57,7 +59,7 @@ class _LibraryPageState extends State<LibraryPage> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to load PDF")),
+        const SnackBar(content: Text("Failed to load PDF")),
       );
     }
   }
@@ -88,7 +90,7 @@ class _LibraryPageState extends State<LibraryPage> {
         appBar: AppBar(
           backgroundColor: Colors.indigo[900],
           elevation: 0,
-          title: Center(
+          title: const Center(
             child: Text(
               'Library',
               style: TextStyle(
@@ -98,7 +100,7 @@ class _LibraryPageState extends State<LibraryPage> {
               ),
             ),
           ),
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: Stack(
           children: [
@@ -108,7 +110,7 @@ class _LibraryPageState extends State<LibraryPage> {
               right: 0,
               bottom: 0,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(60),
@@ -120,18 +122,18 @@ class _LibraryPageState extends State<LibraryPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       TextField(
                         controller: searchController,
                         decoration: InputDecoration(
                           hintText: 'Search for books...',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                         onChanged: filterSearchResults,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Expanded(
                         child: ListView.builder(
                           itemCount: filteredBooks.length,
@@ -140,16 +142,16 @@ class _LibraryPageState extends State<LibraryPage> {
                                 filteredBooks[index]["available"];
                             return Card(
                               elevation: 5, // Adds a subtle shadow effect
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 5),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)),
                               child: ListTile(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                                 title: Text(
                                   filteredBooks[index]["title"],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -182,12 +184,12 @@ class _LibraryPageState extends State<LibraryPage> {
 
 class PDFViewerScreen extends StatelessWidget {
   final String pdfPath;
-  const PDFViewerScreen({required this.pdfPath});
+  const PDFViewerScreen({super.key, required this.pdfPath});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("PDF Viewer")),
+      appBar: AppBar(title: const Text("PDF Viewer")),
       body: PDFView(
         filePath: pdfPath,
         enableSwipe: true,
