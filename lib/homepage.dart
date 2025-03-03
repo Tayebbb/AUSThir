@@ -12,20 +12,33 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade900,
-      appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: const Text(
-          "Dashboard",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.indigo[900],
       body: Stack(
         children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.15,
+              color: Colors.indigo[900],
+              child: const Column(
+                children: [
+                  SizedBox(height: 70),
+                  Center(
+                    child: Text(
+                      "CGPA CALCULATOR",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.15,
             left: 0,
@@ -53,23 +66,23 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            const Row(
                               children: [
-                                const CircleAvatar(
+                                CircleAvatar(
                                   radius: 30,
                                   backgroundImage:
                                       AssetImage('assets/profile.jpg'),
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
+                                  children: [
                                     Text('Hi, Welcome Back',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)),
-                                    Text('Cristiano Ronaldo',
+                                    Text('User Name',
                                         style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
@@ -86,7 +99,7 @@ class HomePage extends StatelessWidget {
                             const SizedBox(height: 16),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: LinearProgressIndicator(
+                              child: const LinearProgressIndicator(
                                 value: 0.26,
                                 backgroundColor: Colors.white24,
                                 color: Colors.white,
@@ -115,7 +128,7 @@ class HomePage extends StatelessWidget {
                         mainAxisSpacing: 10,
                         children: [
                           _buildGridItem(
-                              context, Icons.newspaper, 'News', () {}),
+                              context, Icons.newspaper, 'Events', () {}),
                           _buildGridItem(
                               context,
                               Icons.check_circle,
@@ -130,7 +143,7 @@ class HomePage extends StatelessWidget {
                           _buildGridItem(
                               context,
                               Icons.calculate,
-                              'CGPA',
+                              'CGPA Calculator',
                               () => _navigate(
                                   context, const CgpaCalculatorScreen())),
                           _buildGridItem(context, Icons.book, 'Materials',
@@ -149,18 +162,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue.shade900,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: "School"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.notifications), label: "Notifications"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );
