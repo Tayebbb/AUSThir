@@ -56,7 +56,7 @@ class _RegState extends State<Reg> {
                         });
                       },
                       checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.all(Colors.indigo),
+                      fillColor: WidgetStateProperty.all(Colors.indigo),
                     ),
                     const Text('I agree to ', style: TextStyle(color: Colors.black)),
                     GestureDetector(
@@ -122,9 +122,7 @@ class _RegState extends State<Reg> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: () {
-                        print('google');
-                      },
+                      onTap: () {},
                       child: SizedBox(
                         width: 55,
                         height: 50,
@@ -133,9 +131,7 @@ class _RegState extends State<Reg> {
                     ),
                     const SizedBox(width: 16),
                     InkWell(
-                      onTap: () {
-                        print('facebook');
-                      },
+                      onTap: () {},
                       child: SizedBox(
                         width: 35,
                         height: 35,
@@ -154,14 +150,14 @@ class _RegState extends State<Reg> {
                     );
                   },
                   child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    text: const TextSpan(
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: "Have an account? ",
                           style: TextStyle(color: Colors.black),
                         ),
-                        const TextSpan(
+                        TextSpan(
                           text: "Sign In",
                           style: TextStyle(color: Colors.indigo),
                         ),
