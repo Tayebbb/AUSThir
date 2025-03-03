@@ -1,8 +1,9 @@
-import 'package:austhir/FAQScreen.dart';
+import 'package:austhir/faqScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
+// ignore: unused_import
 import 'package:firebase_auth/firebase_auth.dart';
 import 'finance.dart';
 import 'materials.dart';
@@ -120,7 +121,9 @@ class HomePage extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => const Materials()),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Materials()),
                                       );
                                     }),
                                 SquareButton(
@@ -131,7 +134,7 @@ class HomePage extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                              FAQScreen()));
+                                                  FAQScreen()));
                                     }),
                                 SquareButton(
                                     text: 'Finance',
@@ -140,9 +143,9 @@ class HomePage extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => const FinancePage()));
+                                              builder: (context) =>
+                                                  const FinancePage()));
                                     }),
-
                                 SquareButton(
                                     text: 'Library',
                                     icon: Icons.library_books,
@@ -161,9 +164,9 @@ class HomePage extends StatelessWidget {
             Container(
               color: Colors.grey[800], // Gray color for the bottom bar
               padding: const EdgeInsets.all(8.0),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
+                children: [
                   Icon(Icons.home, color: Colors.white),
                   Icon(Icons.school, color: Colors.white),
                   Icon(Icons.notifications, color: Colors.white),
@@ -198,7 +201,7 @@ class SquareButton extends StatelessWidget {
           color: Colors.indigo[900], // Gray color for the button
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.black, width: 2),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 5,

@@ -1,6 +1,6 @@
 import 'package:austhir/splashanimation.dart';
 import 'package:flutter/material.dart';
-import 'package:austhir/RegisterSplash.dart';
+import 'package:austhir/registersplash.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});

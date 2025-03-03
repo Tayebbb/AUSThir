@@ -9,22 +9,22 @@ class FinancePage extends StatelessWidget {
       backgroundColor: Colors.indigo[900],
       body: Column(
         children: [
-      SafeArea(
-      child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Center(
-        child: Text(
-          "PAYMENTS",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            letterSpacing: 1.0,
+          const SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: Text(
+                  "PAYMENTS",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-    ),
-    ),
           const SizedBox(height: 20),
 
           // Payment List
@@ -41,16 +41,18 @@ class FinancePage extends StatelessWidget {
               child: ListView(
                 children: [
                   sectionTitle("Spring, 2024 Payments"),
-                  financeTile("12-01-2025", "15-01-2025", "UG Semester Fee", "77,175.00", "Cash", "Q1xsNpZRZ0Z9k66", true),
+                  financeTile("12-01-2025", "15-01-2025", "UG Semester Fee",
+                      "77,175.00", "Cash", "Q1xsNpZRZ0Z9k66", true),
                   totalAmount("77,175.00"),
-
                   sectionTitle("Fall, 2023 Payments"),
-                  financeTile("28-04-2024", "05-05-2024", "UG Semester Fee", "102,300.00", "Cash", "Q1xsNpY8lYsxo38", true),
+                  financeTile("28-04-2024", "05-05-2024", "UG Semester Fee",
+                      "102,300.00", "Cash", "Q1xsNpY8lYsxo38", true),
                   totalAmount("102,300.00"),
-
                   sectionTitle("Spring, 2023 Payments"),
-                  financeTile("09-12-2023", "-", "Dues", "1,000.00", "Cash", "S1zuPp-YxPlO2J-31", false),
-                  financeTile("28-08-2023", "28-08-2023", "UG New Admission", "131,000.00", "Cash", "BYloI-Yosjr6-12", true),
+                  financeTile("09-12-2023", "-", "Dues", "1,000.00", "Cash",
+                      "S1zuPp-YxPlO2J-31", false),
+                  financeTile("28-08-2023", "28-08-2023", "UG New Admission",
+                      "131,000.00", "Cash", "BYloI-Yosjr6-12", true),
                   totalAmount("131,000.00"),
                 ],
               ),
@@ -71,17 +73,26 @@ class FinancePage extends StatelessWidget {
     );
   }
 
-  Widget financeTile(String appDate, String paymentDate, String feeGroup, String amount, String paymentMethod, String transactionId, bool isCompleted) {
+  Widget financeTile(
+      String appDate,
+      String paymentDate,
+      String feeGroup,
+      String amount,
+      String paymentMethod,
+      String transactionId,
+      bool isCompleted) {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: ListTile(
-        title: Text(feeGroup, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title:
+            Text(feeGroup, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("App. Date: $appDate"),
-            Text("Payment Date: ${paymentDate == "-" ? "Pending" : paymentDate}"),
+            Text(
+                "Payment Date: ${paymentDate == "-" ? "Pending" : paymentDate}"),
             Text("Amount: $amount"),
             Text("Payment Method: $paymentMethod"),
             Text("Transaction ID: $transactionId"),
@@ -107,9 +118,9 @@ class FinancePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Text(
         "Total Verified Payments: $amount",
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
+        style: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
       ),
     );
   }
 }
-

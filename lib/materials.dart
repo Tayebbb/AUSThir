@@ -55,7 +55,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '1.1.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '1.1.png'),
                             ),
                           );
                         },
@@ -67,7 +68,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '1.2.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '1.2.png'),
                             ),
                           );
                         },
@@ -79,7 +81,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '2.1.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '2.1.png'),
                             ),
                           );
                         },
@@ -91,7 +94,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '2.2.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '2.2.png'),
                             ),
                           );
                         },
@@ -103,7 +107,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '3.1.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '3.1.png'),
                             ),
                           );
                         },
@@ -115,7 +120,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '3.2.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '3.2.png'),
                             ),
                           );
                         },
@@ -127,7 +133,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '4.1.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '4.1.png'),
                             ),
                           );
                         },
@@ -139,7 +146,8 @@ class Materials extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImageScreen(imageName: '4.2.png'),
+                              builder: (context) =>
+                                  const ImageScreen(imageName: '4.2.png'),
                             ),
                           );
                         },
@@ -177,7 +185,7 @@ class SquareButton extends StatelessWidget {
           color: Colors.indigo[900],
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.black, width: 2),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 5,
@@ -213,13 +221,13 @@ class ImageScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white, 
-        title: Text(imageName, style: TextStyle(color: Colors.black)),
-        iconTheme: IconThemeData(color: Colors.black), 
-        elevation: 0, 
+        backgroundColor: Colors.white,
+        title: Text(imageName, style: const TextStyle(color: Colors.black)),
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
       body: Center(
-        child: InteractiveViewer( 
+        child: InteractiveViewer(
           child: Image.asset('assets/$imageName'),
         ),
       ),
