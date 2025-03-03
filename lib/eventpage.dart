@@ -7,31 +7,27 @@ class EventsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigo[900],
+      appBar: AppBar(
+        backgroundColor: Colors.indigo[900],
+        elevation: 0,
+        centerTitle: true, // Ensures the title is centered
+        title: const Text(
+          "Events",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "Events",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-            ),
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
