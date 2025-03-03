@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'AuthService.dart';
 import 'login.dart';
-import 'homepage.dart';  // Import the HomePage
+import 'homepage.dart';
 
 class Reg extends StatefulWidget {
   const Reg({super.key});
@@ -9,7 +9,6 @@ class Reg extends StatefulWidget {
   @override
   _RegState createState() => _RegState();
 }
-
 class _RegState extends State<Reg> {
   bool isChecked = false;
   final TextEditingController nameController = TextEditingController();
@@ -17,6 +16,7 @@ class _RegState extends State<Reg> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController(); // Added username controller
   final AuthService _authService = AuthService();
 
   @override
@@ -40,6 +40,7 @@ class _RegState extends State<Reg> {
                 ),
                 const SizedBox(height: 24),
                 _buildTextField(Icons.person, 'Name', nameController),
+                _buildTextField(Icons.person, 'Username', usernameController), // New username field
                 _buildTextField(Icons.account_circle, 'Student Id', studentidController),
                 _buildTextField(Icons.email, 'Edu-Mail', emailController),
                 _buildTextField(Icons.phone, 'Phone Number', phoneController),
@@ -78,7 +79,8 @@ class _RegState extends State<Reg> {
                         studentidController.text.isEmpty ||
                         emailController.text.isEmpty ||
                         phoneController.text.isEmpty ||
-                        passwordController.text.isEmpty) {
+                        passwordController.text.isEmpty ||
+                        usernameController.text.isEmpty) { // Check if username is empty
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Please fill all fields')),
                       );
@@ -92,6 +94,7 @@ class _RegState extends State<Reg> {
                       name: nameController.text.trim(),
                       studentId: studentidController.text.trim(),
                       phone: phoneController.text.trim(),
+                      username: usernameController.text.trim(), // Pass the username
                       context: context,
                     );
 

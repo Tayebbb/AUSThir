@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'homepage.dart';
-
-// class UserModel {
-//   late final String name;
-//   final String stud
-// }
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -16,8 +11,8 @@ class AuthService {
   // Sign in function
   Future<void> signInUser(
       {required String email,
-      required String password,
-      required BuildContext context}) async {
+        required String password,
+        required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
@@ -46,6 +41,7 @@ class AuthService {
     required String name,
     required String studentId,
     required String phone,
+    required String username, // Added username parameter
     required BuildContext context,
   }) async {
     try {
@@ -54,10 +50,11 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
       print('User created: ${userCredential.user!.uid}'); // Debug log
 
-      // Store user data in Firestore
+      // Store user data in Firestore, including the username
       await _firestore.collection('austhir').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'name': name,
+        'username': username, // Added username field
         'studentId': studentId,
         'eduMail': email,
         'phone': phone,

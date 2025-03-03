@@ -14,8 +14,9 @@ class Materials extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  SquareButton(
+                    text: '',
+                    icon: Icons.arrow_back,
                     onPressed: () => Navigator.pop(context),
                   ),
                   const Spacer(),
@@ -47,112 +48,23 @@ class Materials extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 30,
                     crossAxisSpacing: 30,
-                    children: [
-                      SquareButton(
-                        text: '1.1',
+                    children: List.generate(8, (index) {
+                      final row = (index ~/ 2) + 1;
+                      final col = (index % 2) + 1;
+                      return SquareButton(
+                        text: '$row.$col',
                         icon: Icons.book,
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const ImageScreen(imageName: '1.1.png'),
+                                  ImageScreen(imageName: '$row.$col.png'),
                             ),
                           );
                         },
-                      ),
-                      SquareButton(
-                        text: '1.2',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '1.2.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '2.1',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '2.1.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '2.2',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '2.2.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '3.1',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '3.1.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '3.2',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '3.2.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '4.1',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '4.1.png'),
-                            ),
-                          );
-                        },
-                      ),
-                      SquareButton(
-                        text: '4.2',
-                        icon: Icons.book,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ImageScreen(imageName: '4.2.png'),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                      );
+                    }),
                   ),
                 ),
               ),
@@ -198,12 +110,14 @@ class SquareButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 40, color: Colors.white),
-            const SizedBox(height: 8),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
+            if (text.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                text,
+                style: const TextStyle(fontSize: 16, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ],
         ),
       ),

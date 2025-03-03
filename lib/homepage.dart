@@ -1,14 +1,58 @@
-import 'package:austhir/library.dart';
+import 'package:austhir/eventpage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:austhir/faqScreen.dart';
 import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
 import 'finance.dart';
 import 'materials.dart';
+import 'profilePage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String name = '';
+  String studentId = '';
+  bool isLoading = true; // Track loading state
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  // Fetch user data from Firestore
+  Future<void> _fetchUserData() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('austhir')
+            .doc(currentUser.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            name = userDoc['name'] ?? 'No Name Available';
+            studentId = userDoc['studentId'] ?? 'No ID Available';
+            isLoading = false; // Data is loaded, stop loading
+          });
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to load user data: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,24 +111,35 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage:
-                                      AssetImage('assets/profile.jpg'),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                                    );
+                                  },
+                                  child: const CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage:
+                                    AssetImage('assets/profile.jpg'),
+                                  ),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Hi, Welcome Back',
+                                    const Text('Hi, Welcome Back',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)),
-                                    Text('User Name',
-                                        style: TextStyle(color: Colors.white)),
+                                    // Show loading text until data is fetched
+                                    Text(
+                                      isLoading ? 'Loading...' : name,
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -93,7 +148,7 @@ class HomePage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildInfoCard('Student ID', '24101466'),
+                                _buildInfoCard('Student ID', isLoading ? 'Loading...' : studentId),
                                 _buildInfoCard('Semester', 'Spring 2024'),
                               ],
                             ),
@@ -129,35 +184,31 @@ class HomePage extends StatelessWidget {
                         mainAxisSpacing: 10,
                         children: [
                           _buildGridItem(
-                              context, Icons.newspaper, 'Events', () {}),
+                              context, Icons.newspaper, 'Events',
+                                  () => _navigate(context, const EventsPage())),
                           _buildGridItem(
                               context,
                               Icons.check_circle,
                               'Attendance',
-                              () => _navigate(context, const AttendancePage())),
+                                  () => _navigate(context, const AttendancePage())),
                           _buildGridItem(
                               context,
                               Icons.calendar_today,
                               'Calendar',
-                              () => _navigate(
+                                  () => _navigate(
                                   context, const AcademicCalendarPage())),
                           _buildGridItem(
                               context,
                               Icons.calculate,
                               'CGPA Calculator',
-                              () => _navigate(
+                                  () => _navigate(
                                   context, const CgpaCalculatorScreen())),
                           _buildGridItem(context, Icons.book, 'Materials',
-                              () => _navigate(context, const Materials())),
+                                  () => _navigate(context, const Materials())),
                           _buildGridItem(context, Icons.help, 'FAQ',
-                              () => _navigate(context, FAQScreen())),
+                                  () => _navigate(context, FAQScreen())),
                           _buildGridItem(context, Icons.attach_money, 'Finance',
-                              () => _navigate(context, const FinancePage())),
-                          _buildGridItem(
-                              context,
-                              Icons.library_books,
-                              'Library',
-                              () => _navigate(context, LibraryPage())),
+                                  () => _navigate(context, const FinancePage())),
                         ],
                       ),
                     ),
