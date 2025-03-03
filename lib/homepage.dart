@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 70),
                   Center(
                     child: Text(
-                      "CGPA CALCULATOR",
+                      "DashBoard",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
