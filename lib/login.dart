@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'AuthService.dart';
+import 'authservice.dart';
 import 'reg.dart';
 
 class SignIn extends StatefulWidget {
@@ -113,13 +113,15 @@ class _SignInState extends State<SignIn> {
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
                           ),
-                          prefixIcon: const Icon(Icons.email, color: Colors.indigo),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.indigo),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@aust\.edu$").hasMatch(value)) {
+                          if (!RegExp(r"^[a-zA-Z0-9+_.-]+@aust\.edu$")
+                              .hasMatch(value)) {
                             return 'Enter a valid AUST email address (example@aust.edu)';
                           }
                           return null;
@@ -139,7 +141,8 @@ class _SignInState extends State<SignIn> {
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
                           ),
-                          prefixIcon: const Icon(Icons.lock, color: Colors.indigo),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.indigo),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
