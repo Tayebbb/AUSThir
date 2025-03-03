@@ -1,10 +1,8 @@
-import 'package:austhir/faqScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:austhir/faqScreen.dart';
 import 'package:austhir/cgpacalc.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
-// ignore: unused_import
-import 'package:firebase_auth/firebase_auth.dart';
 import 'finance.dart';
 import 'materials.dart';
 
@@ -14,215 +12,192 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[900],
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.25,
-              color: Colors.indigo[900],
-              child: const Center(
+      backgroundColor: Colors.blue.shade900,
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
+        title: const Text(
+          "Dashboard",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.15,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(60),
+                  topRight: Radius.circular(60),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 70),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.grey,
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      color: Colors.blue.shade800,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage:
+                                      AssetImage('assets/profile.jpg'),
+                                ),
+                                const SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text('Hi, Welcome Back',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                    Text('Cristiano Ronaldo',
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildInfoCard('Student ID', '24101466'),
+                                _buildInfoCard('Semester', 'Spring 2024'),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: LinearProgressIndicator(
+                                value: 0.26,
+                                backgroundColor: Colors.white24,
+                                color: Colors.white,
+                                minHeight: 10,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              child: const Text('Completed 36 Credits (26%)',
+                                  style: TextStyle(color: Colors.blue)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Saidul Islam Shehab',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    Text(
-                      'Student ID: 20230104049',
-                      style: TextStyle(fontSize: 14, color: Colors.white70),
-                    ),
-                    Text(
-                      'From Semester: Spring 2024',
-                      style: TextStyle(fontSize: 14, color: Colors.white70),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        children: [
+                          _buildGridItem(
+                              context, Icons.newspaper, 'News', () {}),
+                          _buildGridItem(
+                              context,
+                              Icons.check_circle,
+                              'Attendance',
+                              () => _navigate(context, const AttendancePage())),
+                          _buildGridItem(
+                              context,
+                              Icons.calendar_today,
+                              'Calendar',
+                              () => _navigate(
+                                  context, const AcademicCalendarPage())),
+                          _buildGridItem(
+                              context,
+                              Icons.calculate,
+                              'CGPA',
+                              () => _navigate(
+                                  context, const CgpaCalculatorScreen())),
+                          _buildGridItem(context, Icons.book, 'Materials',
+                              () => _navigate(context, const Materials())),
+                          _buildGridItem(context, Icons.help, 'FAQ',
+                              () => _navigate(context, FAQScreen())),
+                          _buildGridItem(context, Icons.attach_money, 'Finance',
+                              () => _navigate(context, const FinancePage())),
+                          _buildGridItem(
+                              context, Icons.library_books, 'Library', () {}),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            const SizedBox(height: 16),
-                            GridView.count(
-                              crossAxisCount: 2,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              mainAxisSpacing: 30,
-                              crossAxisSpacing: 30,
-                              children: [
-                                SquareButton(
-                                    text: 'News',
-                                    icon: Icons.newspaper,
-                                    onPressed: () {}),
-                                SquareButton(
-                                    text: 'Attendance',
-                                    icon: Icons.check_circle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const AttendancePage()));
-                                    }),
-                                SquareButton(
-                                    text: 'Academic Calendar',
-                                    icon: Icons.calendar_today,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const AcademicCalendarPage()));
-                                    }),
-                                SquareButton(
-                                    text: 'CGPA Calculator',
-                                    icon: Icons.calculate,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const CgpaCalculatorScreen()));
-                                    }),
-                                SquareButton(
-                                    text: 'Materials',
-                                    icon: Icons.book,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Materials()),
-                                      );
-                                    }),
-                                SquareButton(
-                                    text: 'FAQ',
-                                    icon: Icons.help,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  FAQScreen()));
-                                    }),
-                                SquareButton(
-                                    text: 'Finance',
-                                    icon: Icons.attach_money,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const FinancePage()));
-                                    }),
-                                SquareButton(
-                                    text: 'Library',
-                                    icon: Icons.library_books,
-                                    onPressed: () {}),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.grey[800], // Gray color for the bottom bar
-              padding: const EdgeInsets.all(8.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(Icons.home, color: Colors.white),
-                  Icon(Icons.school, color: Colors.white),
-                  Icon(Icons.notifications, color: Colors.white),
-                  Icon(Icons.person, color: Colors.white),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue.shade900,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: "School"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.notifications), label: "Notifications"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
       ),
     );
   }
-}
 
-class SquareButton extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  final VoidCallback onPressed;
+  Widget _buildInfoCard(String title, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: const TextStyle(color: Colors.white70)),
+        Text(value,
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
 
-  const SquareButton(
-      {super.key,
-      required this.text,
-      required this.icon,
-      required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildGridItem(
+      BuildContext context, IconData icon, String label, VoidCallback onTap) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.indigo[900], // Gray color for the button
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.black, width: 2),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 5,
-              offset: Offset(0, 5),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: Colors.white),
-            const SizedBox(height: 8),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: Colors.blue.shade800,
+            child: Icon(icon, color: Colors.white),
+          ),
+          const SizedBox(height: 8),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
       ),
     );
+  }
+
+  void _navigate(BuildContext context, Widget page) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 }
