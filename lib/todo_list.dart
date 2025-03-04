@@ -175,10 +175,10 @@ class _ToDoListPageState extends State<ToDoListPage> {
                               ),
                               subtitle: task['date'] != null
                                   ? Text(
-                                      task['date']!,
-                                      style: const TextStyle(
-                                          color: Colors.white70),
-                                    )
+                                task['date']!,
+                                style: const TextStyle(
+                                    color: Colors.white70),
+                              )
                                   : null,
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
