@@ -9,6 +9,8 @@ import 'academic_calender.dart';
 import 'finance.dart';
 import 'materials.dart';
 import 'profilePage.dart';
+import 'results.dart';
+import 'todo_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -117,7 +119,8 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                                      MaterialPageRoute(
+                                          builder: (context) => ProfilePage()),
                                     );
                                   },
                                   child: const CircleAvatar(
@@ -138,7 +141,8 @@ class _HomePageState extends State<HomePage> {
                                     // Show loading text until data is fetched
                                     Text(
                                       isLoading ? 'Loading...' : name,
-                                      style: const TextStyle(color: Colors.white),
+                                      style:
+                                      const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -148,7 +152,8 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildInfoCard('Student ID', isLoading ? 'Loading...' : studentId),
+                                _buildInfoCard('Student ID',
+                                    isLoading ? 'Loading...' : studentId),
                                 _buildInfoCard('Semester', 'Spring 2024'),
                               ],
                             ),
@@ -183,8 +188,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
                         children: [
-                          _buildGridItem(
-                              context, Icons.newspaper, 'Events',
+                          _buildGridItem(context, Icons.newspaper, 'Events',
                                   () => _navigate(context, const EventsPage())),
                           _buildGridItem(
                               context,
@@ -209,6 +213,18 @@ class _HomePageState extends State<HomePage> {
                                   () => _navigate(context, FAQScreen())),
                           _buildGridItem(context, Icons.attach_money, 'Finance',
                                   () => _navigate(context, const FinancePage())),
+                          _buildGridItem(
+                              context,
+                              Icons.assessment,
+                              'Results',
+                                  () => _navigate(context,
+                                  const ResultsPage())), // Add the Results button
+                          _buildGridItem(
+                              context,
+                              Icons.check_box,
+                              'To-Do List',
+                                  () => _navigate(context,
+                                  const ToDoListPage())), // Add the To-Do List button
                         ],
                       ),
                     ),
