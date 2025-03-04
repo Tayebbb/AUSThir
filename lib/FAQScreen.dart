@@ -180,7 +180,7 @@ class FAQScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SendMessageScreen()),
+                            builder: (context) => const SendMessageScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

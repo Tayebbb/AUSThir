@@ -9,6 +9,7 @@ class Reg extends StatefulWidget {
   @override
   _RegState createState() => _RegState();
 }
+
 class _RegState extends State<Reg> {
   bool isChecked = false;
   final TextEditingController nameController = TextEditingController();
@@ -16,7 +17,8 @@ class _RegState extends State<Reg> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController(); // Added username controller
+  final TextEditingController usernameController =
+      TextEditingController(); // Added username controller
   final AuthService _authService = AuthService();
 
   @override
@@ -40,11 +42,14 @@ class _RegState extends State<Reg> {
                 ),
                 const SizedBox(height: 24),
                 _buildTextField(Icons.person, 'Name', nameController),
-                _buildTextField(Icons.person, 'Username', usernameController), // New username field
-                _buildTextField(Icons.account_circle, 'Student Id', studentidController),
+                _buildTextField(Icons.person, 'Username',
+                    usernameController), // New username field
+                _buildTextField(
+                    Icons.account_circle, 'Student Id', studentidController),
                 _buildTextField(Icons.email, 'Edu-Mail', emailController),
                 _buildTextField(Icons.phone, 'Phone Number', phoneController),
-                _buildTextField(Icons.lock, 'Password', passwordController, isPassword: true),
+                _buildTextField(Icons.lock, 'Password', passwordController,
+                    isPassword: true),
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -59,15 +64,18 @@ class _RegState extends State<Reg> {
                       checkColor: Colors.white,
                       fillColor: MaterialStateProperty.all(Colors.indigo),
                     ),
-                    const Text('I agree to ', style: TextStyle(color: Colors.black)),
+                    const Text('I agree to ',
+                        style: TextStyle(color: Colors.black)),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text('Privacy Policy', style: TextStyle(color: Colors.indigo)),
+                      child: const Text('Privacy Policy',
+                          style: TextStyle(color: Colors.indigo)),
                     ),
                     const Text(' and ', style: TextStyle(color: Colors.black)),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text('Terms of use', style: TextStyle(color: Colors.indigo)),
+                      child: const Text('Terms of use',
+                          style: TextStyle(color: Colors.indigo)),
                     ),
                   ],
                 ),
@@ -75,39 +83,56 @@ class _RegState extends State<Reg> {
                 ElevatedButton(
                   onPressed: isChecked
                       ? () async {
-                    if (nameController.text.isEmpty ||
-                        studentidController.text.isEmpty ||
-                        emailController.text.isEmpty ||
-                        phoneController.text.isEmpty ||
-                        passwordController.text.isEmpty ||
-                        usernameController.text.isEmpty) { // Check if username is empty
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Please fill all fields')),
-                      );
-                      return;
-                    }
+                          if (nameController.text.isEmpty ||
+                              studentidController.text.isEmpty ||
+                              emailController.text.isEmpty ||
+                              phoneController.text.isEmpty ||
+                              passwordController.text.isEmpty ||
+                              usernameController.text.isEmpty) {
+                            // Check if any field is empty
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Please fill all fields')),
+                            );
+                            return;
+                          }
 
-                    // Call signUpUser and wait for the result
-                    await _authService.signUpUser(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                      name: nameController.text.trim(),
-                      studentId: studentidController.text.trim(),
-                      phone: phoneController.text.trim(),
-                      username: usernameController.text.trim(), // Pass the username
-                      context: context,
-                    );
+                          if (!emailController.text
+                              .trim()
+                              .endsWith('@aust.edu')) {
+                            // Check if email does not end with @aust.edu
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Please use an @aust.edu email')),
+                            );
+                            return;
+                          }
 
-                    // If successful, navigate to the HomePage
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
-                  }
+                          // Call signUpUser and wait for the result
+                          await _authService.signUpUser(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                            name: nameController.text.trim(),
+                            studentId: studentidController.text.trim(),
+                            phone: phoneController.text.trim(),
+                            username: usernameController.text
+                                .trim(), // Pass the username
+                            context: context,
+                          );
+
+                          // If successful, navigate to the HomePage
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        }
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.indigo,
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
                     textStyle: const TextStyle(fontSize: 16),
                   ),
                   child: const Text(
@@ -157,14 +182,15 @@ class _RegState extends State<Reg> {
                     );
                   },
                   child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    text: const TextSpan(
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: "Have an account? ",
                           style: TextStyle(color: Colors.black),
                         ),
-                        const TextSpan(
+                        TextSpan(
                           text: "Sign In",
                           style: TextStyle(color: Colors.indigo),
                         ),
@@ -180,7 +206,9 @@ class _RegState extends State<Reg> {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hintText, TextEditingController controller, {bool isPassword = false}) {
+  Widget _buildTextField(
+      IconData icon, String hintText, TextEditingController controller,
+      {bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(

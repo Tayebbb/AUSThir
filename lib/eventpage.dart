@@ -45,7 +45,7 @@ class EventsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(24.0),
                   children: const [
                     EventCard(
-                      title: "AUST CSE SOCIETY Seminar",
+                      title: "AUST CSE Seminar",
                       imagePath: "assets/cse_seminar.jpg",
                     ),
                     EventCard(
@@ -53,7 +53,7 @@ class EventsPage extends StatelessWidget {
                       imagePath: "assets/idc_summit.jpg",
                     ),
                     EventCard(
-                      title: "AUST PIC Photography Contest",
+                      title: "AUST PIC Programming Contest",
                       imagePath: "assets/pic_contest.jpg",
                     ),
                   ],

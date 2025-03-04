@@ -29,7 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _loadUserData() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      DocumentSnapshot userData = await _firestore.collection('austhir').doc(user.uid).get();
+      DocumentSnapshot userData =
+          await _firestore.collection('austhir').doc(user.uid).get();
       if (userData.exists) {
         setState(() {
           nameController.text = userData['name'] ?? '';
@@ -38,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
           emailController.text = userData['eduMail'] ?? '';
           phoneController.text = userData['phone'] ?? '';
           birthDateController.text = userData['birthDate'] ?? '';
-          selectedGender = userData['gender'] ?? null;
+          selectedGender = userData['gender'];
         });
       }
     }
@@ -112,7 +113,8 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildTextField("Email", emailController),
               _buildTextField("Phone Number", phoneController),
               _buildTextField("Birth Date", birthDateController),
-              _buildDropdownField("Gender", ['Male', 'Female', 'Other'], (value) {
+              _buildDropdownField("Gender", ['Male', 'Female', 'Other'],
+                  (value) {
                 setState(() {
                   selectedGender = value;
                 });
@@ -124,7 +126,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   minimumSize: const Size(double.infinity, 50),
                 ),
                 onPressed: updateProfile,
-                child: const Text("Update Profile", style: TextStyle(color: Colors.white)),
+                child: const Text("Update Profile",
+                    style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
@@ -140,21 +143,24 @@ class _ProfilePageState extends State<ProfilePage> {
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         ),
         controller: controller,
       ),
     );
   }
 
-  Widget _buildDropdownField(String label, List<String> options, Function(String?) onChanged) {
+  Widget _buildDropdownField(
+      String label, List<String> options, Function(String?) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         ),
         value: selectedGender,
         items: options.map((String value) {
