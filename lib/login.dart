@@ -13,6 +13,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   void _validateAndLogin() {
     if (_formKey.currentState!.validate()) {
@@ -114,7 +115,7 @@ class _SignInState extends State<SignIn> {
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon:
-                              const Icon(Icons.email, color: Colors.indigo),
+                          const Icon(Icons.email, color: Colors.indigo),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -130,7 +131,7 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
-                        obscureText: true,
+                        obscureText: _obscureText,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           filled: true,
@@ -142,7 +143,18 @@ class _SignInState extends State<SignIn> {
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon:
-                              const Icon(Icons.lock, color: Colors.indigo),
+                          const Icon(Icons.lock, color: Colors.indigo),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.indigo,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
