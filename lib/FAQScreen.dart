@@ -39,7 +39,69 @@ class _FAQScreenState extends State<FAQScreen> {
       "answer":
           "Yes, we offer multiple scholarships based on merit and financial need."
     },
-    // Add more FAQs as needed
+    {
+      "question": "How to access the library?",
+      "answer":
+          "Students can access the library using their student ID card during working hours."
+    },
+    {
+      "question": "How can I reset my student portal password?",
+      "answer":
+          "Use the 'Forgot Password' option on the login page to reset your password."
+    },
+    {
+      "question": "What extracurricular activities are available?",
+      "answer":
+          "We have multiple clubs, sports teams, and cultural activities for students."
+    },
+    {
+      "question":
+          "I'm a first year first semester student. I did not yet receive my IUMS Account Information.",
+      "answer":
+          "Please contact the university IT department to get your account details."
+    },
+    {
+      "question":
+          "I want to apply for semester extension to continue my study.",
+      "answer":
+          "You need to submit a request through the academic office before the deadline."
+    },
+    {
+      "question":
+          "I failed to pay the semester fees installments in due date. What should I do now?",
+      "answer":
+          "You should contact the accounts section immediately for possible late payment arrangements."
+    },
+    {
+      "question":
+          "How can I get my Institutional email address? I cannot login into my Institutional email account, what should I do?",
+      "answer":
+          "You can get your email details from the IT department. If you face login issues, reset your password or contact IT support."
+    },
+    {
+      "question":
+          "My Section information is wrong in IUMS. As a result, I'm getting the wrong routine information.",
+      "answer":
+          "Visit the academic office to update your section information in the system."
+    },
+    {
+      "question":
+          "I have paid my fees through ONE Bank Branch. But still my payment is showing Pending in my IUMS account.",
+      "answer":
+          "It may take some time for the payment to be updated. Contact the accounts department with proof of payment if the issue persists."
+    },
+    {
+      "question":
+          "There is a problem in my Semester Grades/GPA/CGPA calculation. What should I do?",
+      "answer":
+          "Reach out to the examination office for verification and correction if necessary."
+    },
+    {
+      "question":
+          "I have failed to pay my semester fees in due time. Deadline of semester fees/readmission fees has already ended. How can I pay my fees?",
+      "answer":
+          "You need to visit the accounts section and apply for special permission to make a late payment."
+    }
   ];
 
   List<Map<String, String>> filteredFaqs = [];
