@@ -9,8 +9,8 @@ import 'academic_calender.dart';
 import 'finance.dart';
 import 'materials.dart';
 import 'profilePage.dart';
-import 'results.dart';
-import 'todo_list.dart';
+import 'results.dart'; // Import the results page
+import 'todo_list.dart'; // Import the to-do list page
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                                   child: const CircleAvatar(
                                     radius: 30,
                                     backgroundImage:
-                                    AssetImage('assets/profile.jpg'),
+                                        AssetImage('assets/profile.jpg'),
                                   ),
                                 ),
                                 const SizedBox(width: 10),
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       isLoading ? 'Loading...' : name,
                                       style:
-                                      const TextStyle(color: Colors.white),
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -189,41 +189,38 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 10,
                         children: [
                           _buildGridItem(context, Icons.newspaper, 'Events',
-                                  () => _navigate(context, const EventsPage())),
-                          _buildGridItem(
-                              context,
-                              Icons.check_circle,
-                              'Attendance',
-                                  () => _navigate(context, const AttendancePage())),
+                              () => _navigate(context, const EventsPage())),
+                          _buildGridItem(context, Icons.people, 'Attendance',
+                              () => _navigate(context, const AttendancePage())),
                           _buildGridItem(
                               context,
                               Icons.calendar_today,
                               'Calendar',
-                                  () => _navigate(
+                              () => _navigate(
                                   context, const AcademicCalendarPage())),
                           _buildGridItem(
                               context,
                               Icons.calculate,
                               'CGPA Calculator',
-                                  () => _navigate(
+                              () => _navigate(
                                   context, const CgpaCalculatorScreen())),
                           _buildGridItem(context, Icons.book, 'Materials',
-                                  () => _navigate(context, const Materials())),
+                              () => _navigate(context, const Materials())),
                           _buildGridItem(context, Icons.help, 'FAQ',
-                                  () => _navigate(context, FAQScreen())),
+                              () => _navigate(context, FAQScreen())),
                           _buildGridItem(context, Icons.attach_money, 'Finance',
-                                  () => _navigate(context, const FinancePage())),
+                              () => _navigate(context, const FinancePage())),
                           _buildGridItem(
                               context,
                               Icons.assessment,
                               'Results',
-                                  () => _navigate(context,
+                              () => _navigate(context,
                                   const ResultsPage())), // Add the Results button
                           _buildGridItem(
                               context,
                               Icons.check_box,
                               'To-Do List',
-                                  () => _navigate(context,
+                              () => _navigate(context,
                                   const ToDoListPage())), // Add the To-Do List button
                         ],
                       ),
