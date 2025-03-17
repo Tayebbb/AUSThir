@@ -9,8 +9,9 @@ import 'academic_calender.dart';
 import 'finance.dart';
 import 'materials.dart';
 import 'profilePage.dart';
-import 'results.dart'; // Import the results page
-import 'todo_list.dart'; // Import the to-do list page
+import 'results.dart';
+import 'todo_list.dart';
+import 'library.dart'; // Ensure LibraryPage is correctly imported
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String name = '';
   String studentId = '';
-  bool isLoading = true; // Track loading state
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -30,7 +31,6 @@ class _HomePageState extends State<HomePage> {
     _fetchUserData();
   }
 
-  // Fetch user data from Firestore
   Future<void> _fetchUserData() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             name = userDoc['name'] ?? 'No Name Available';
             studentId = userDoc['studentId'] ?? 'No ID Available';
-            isLoading = false; // Data is loaded, stop loading
+            isLoading = false;
           });
         }
       } catch (e) {
@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage> {
                                             color: Colors.white,
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)),
-                                    // Show loading text until data is fetched
                                     Text(
                                       isLoading ? 'Loading...' : name,
                                       style:
@@ -191,9 +190,9 @@ class _HomePageState extends State<HomePage> {
                           _buildGridItem(context, Icons.newspaper, 'Events',
                               () => _navigate(context, EventsPage())),
                           _buildGridItem(context, Icons.people, 'Attendance',
-                              () => _navigate(context, const LibraryPage())),
-_buildGridItem(context, Icons.library_books, 'Library',
                               () => _navigate(context, const AttendancePage())),
+                          _buildGridItem(context, Icons.library_books, 'Library',
+                              () => _navigate(context, const LibraryPage())), 
                           _buildGridItem(
                               context,
                               Icons.calendar_today,
@@ -217,13 +216,13 @@ _buildGridItem(context, Icons.library_books, 'Library',
                               Icons.assessment,
                               'Results',
                               () => _navigate(context,
-                                  const ResultsPage())), // Add the Results button
+                                  const ResultsPage())), 
                           _buildGridItem(
                               context,
                               Icons.check_box,
                               'To-Do List',
                               () => _navigate(context,
-                                  const ToDoListPage())), // Add the To-Do List button
+                                  const ToDoListPage())), 
                         ],
                       ),
                     ),
