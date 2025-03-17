@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 10,
                         children: [
                           _buildGridItem(context, Icons.newspaper, 'Events',
-                              () => _navigate(context, const EventsPage())),
+                              () => _navigate(context, EventsPage())),
                           _buildGridItem(context, Icons.people, 'Attendance',
                               () => _navigate(context, const AttendancePage())),
                           _buildGridItem(

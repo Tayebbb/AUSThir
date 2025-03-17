@@ -15,8 +15,22 @@ class ResultsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.indigo[900],
       appBar: AppBar(
-        title: const Text('Results'),
         backgroundColor: Colors.indigo[900],
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "Results",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0,
+          ),
+        ),
       ),
       body: Stack(
         children: [

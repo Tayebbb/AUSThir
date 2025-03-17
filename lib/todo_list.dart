@@ -52,8 +52,22 @@ class _ToDoListPageState extends State<ToDoListPage> {
     return Scaffold(
       backgroundColor: Colors.indigo[900],
       appBar: AppBar(
-        title: const Text('To-Do List'),
         backgroundColor: Colors.indigo[900],
+        elevation: 0,
+        centerTitle: true, // Centers the title text
+        title: const Text(
+          "To-Do List",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Stack(
         children: [
@@ -69,7 +83,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
                   SizedBox(height: 70),
                   Center(
                     child: Text(
-                      "Add New Task",
+                      "To-Do List",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -175,10 +189,10 @@ class _ToDoListPageState extends State<ToDoListPage> {
                               ),
                               subtitle: task['date'] != null
                                   ? Text(
-                                task['date']!,
-                                style: const TextStyle(
-                                    color: Colors.white70),
-                              )
+                                      task['date']!,
+                                      style: const TextStyle(
+                                          color: Colors.white70),
+                                    )
                                   : null,
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
