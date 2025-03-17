@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                           _buildGridItem(context, Icons.newspaper, 'Events',
                               () => _navigate(context, EventsPage())),
                           _buildGridItem(context, Icons.people, 'Attendance',
-                              () => _navigate(context, const Library())),
+                              () => _navigate(context, const LibraryPage())),
 _buildGridItem(context, Icons.library_books, 'Library',
                               () => _navigate(context, const AttendancePage())),
                           _buildGridItem(
