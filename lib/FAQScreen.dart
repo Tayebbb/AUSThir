@@ -1,8 +1,16 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 
-class FAQScreen extends StatelessWidget {
-  final List<Map<String, String>> faqs = [
+class FAQScreen extends StatefulWidget {
+  const FAQScreen({super.key});
+
+  @override
+  _FAQScreenState createState() => _FAQScreenState();
+}
+
+class _FAQScreenState extends State<FAQScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  List<Map<String, String>> faqs = [
     {
       "question": "What is our University?",
       "answer":
@@ -95,182 +103,135 @@ class FAQScreen extends StatelessWidget {
           "You need to visit the accounts section and apply for special permission to make a late payment."
     }
   ];
-  FAQScreen({super.key});
+
+  List<Map<String, String>> filteredFaqs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredFaqs = faqs; // Show all FAQs initially
+    _searchController.addListener(_filterFAQs);
+  }
+
+  void _filterFAQs() {
+    String query = _searchController.text.toLowerCase();
+    setState(() {
+      filteredFaqs = faqs
+          .where((faq) => faq["question"]!.toLowerCase().contains(query))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.indigo[900],
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text("FAQ", textAlign: TextAlign.center),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Colors.indigo[900],
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          )
-        ],
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "FAQs",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 1.0,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "We're here to help you with anything and everything",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              "Search for your queries below",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
-            const Text(
-              "At our university, we ensure that your concerns are heard. Check our FAQs below.",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            const SizedBox(height: 15),
-            TextField(
+          ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              controller: _searchController,
               decoration: InputDecoration(
                 hintText: "Search Help",
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.white,
               ),
             ),
-            const SizedBox(height: 15),
-            Expanded(
-              child: ListView(
-                children: faqs.map((faq) {
-                  return Card(
-                    child: ExpansionTile(
-                      title: Text(faq["question"]!),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(faq["answer"]!),
-                        )
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "Still stuck? Help us a mail away",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(60),
+                  topRight: Radius.circular(60),
                 ),
-                const SizedBox(height: 5),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SendMessageScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo[700],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: filteredFaqs.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: filteredFaqs.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: ExpansionTile(
+                              title: Text(
+                                filteredFaqs[index]["question"]!,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(filteredFaqs[index]["answer"]!),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text(
+                          "No results found",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 24),
-                    ),
-                    child: const Text("Send a message",
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}
-
-class SendMessageScreen extends StatelessWidget {
-  const SendMessageScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text("Send a Message"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Can't find the answer?",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Write an email to ",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
-            Text(
-              "contact.iums@aust.edu",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline),
-            ),
-            Text(
-              " from your institutional email address.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Use the below email subject template while writing to us.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Email Subject: STUDENT FAQ :: [[STUDENT ID]] :: [[Problem Title]]",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.indigo,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

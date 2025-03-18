@@ -47,6 +47,23 @@ class _CgpaCalculatorScreenState extends State<CgpaCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigo[900],
+      appBar: AppBar(
+        backgroundColor: Colors.indigo[900],
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "CGPA Calculator",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Stack(
         children: [
           Positioned(
