@@ -62,7 +62,7 @@ class _RegState extends State<Reg> {
                         });
                       },
                       checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.all(Colors.indigo),
+                      fillColor: WidgetStateProperty.all(Colors.indigo),
                     ),
                     const Text('I agree to ',
                         style: TextStyle(color: Colors.black)),
