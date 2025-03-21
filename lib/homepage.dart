@@ -1,17 +1,19 @@
-import 'package:austhir/eventpage.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:austhir/eventpage.dart';
 import 'package:austhir/faqScreen.dart';
 import 'package:austhir/cgpacalc.dart';
+import 'package:austhir/library.dart';
 import 'attendance.dart';
 import 'academic_calender.dart';
 import 'finance.dart';
-import 'library.dart';
 import 'materials.dart';
 import 'profilePage.dart';
-import 'results.dart'; // Import the results page
-import 'todo_list.dart'; // Import the to-do list page
+import 'results.dart';
+import 'todo_list.dart';
+import 'library.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +25,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String name = '';
   String studentId = '';
-  bool isLoading = true; // Track loading state
+  bool isLoading = true;
+  DateTime? lastPressed;
 
   @override
   void initState() {
@@ -31,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     _fetchUserData();
   }
 
-  // Fetch user data from Firestore
   Future<void> _fetchUserData() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             name = userDoc['name'] ?? 'No Name Available';
             studentId = userDoc['studentId'] ?? 'No ID Available';
-            isLoading = false; // Data is loaded, stop loading
+            isLoading = false;
           });
         }
       } catch (e) {
@@ -59,51 +61,39 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo[900],
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              color: Colors.indigo[900],
-              child: const Column(
-                children: [
-                  SizedBox(height: 70),
-                  Center(
-                    child: Text(
-                      "DashBoard",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+    return WillPopScope(
+      onWillPop: () async {
+        DateTime now = DateTime.now();
+
+        // If back is pressed twice within 2 seconds, exit the app
+        if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
+          lastPressed = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Press back again to exit"),
+              duration: Duration(seconds: 2),
             ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.15,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+          );
+          return false; // Do not exit yet
+        }
+
+        // Exit the app
+        exit(0);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.indigo[900],
+        body: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.15,
+                color: Colors.indigo[900],
+                child: const Column(
                   children: [
+<<<<<<< HEAD
                     Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
@@ -121,13 +111,14 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ProfilePage()),
+                                          builder: (context) =>
+                                              const ProfilePage()),
                                     );
                                   },
                                   child: const CircleAvatar(
                                     radius: 30,
                                     backgroundImage:
-                                    AssetImage('assets/profile.jpg'),
+                                        AssetImage('assets/profile.jpg'),
                                   ),
                                 ),
                                 const SizedBox(width: 10),
@@ -143,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       isLoading ? 'Loading...' : name,
                                       style:
-                                      const TextStyle(color: Colors.white),
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -190,50 +181,211 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 10,
                         children: [
                           _buildGridItem(context, Icons.newspaper, 'Events',
-                                  () => _navigate(context, EventsPage())),
-                          _buildGridItem(context, Icons.people, 'Attendance',
+                              () => _navigate(context, const EventsPage())),
+                          _buildGridItem(context, Icons.newspaper, 'Events',
+                              () => _navigate(context, const LibraryPage())),
+                          _buildGridItem(
+                              context,
+                              Icons.check_circle,
+                              'Attendance',
                               () => _navigate(context, const AttendancePage())),
-_buildGridItem(context, Icons.library_books, 'Library',
-                                  () => _navigate(context, const LibraryPage())),
                           _buildGridItem(
                               context,
                               Icons.calendar_today,
                               'Calendar',
-                                  () => _navigate(
+                              () => _navigate(
                                   context, const AcademicCalendarPage())),
                           _buildGridItem(
                               context,
                               Icons.calculate,
                               'CGPA Calculator',
-                                  () => _navigate(
+                              () => _navigate(
                                   context, const CgpaCalculatorScreen())),
                           _buildGridItem(context, Icons.book, 'Materials',
-                                  () => _navigate(context, const Materials())),
+                              () => _navigate(context, const Materials())),
                           _buildGridItem(context, Icons.help, 'FAQ',
-                                  () => _navigate(context, FAQScreen())),
+                              () => _navigate(context, FAQScreen())),
                           _buildGridItem(context, Icons.attach_money, 'Finance',
-                                  () => _navigate(context, const FinancePage())),
+                              () => _navigate(context, const FinancePage())),
                           _buildGridItem(
                               context,
                               Icons.assessment,
                               'Results',
-                                  () => _navigate(context,
+                              () => _navigate(context,
                                   const ResultsPage())), // Add the Results button
                           _buildGridItem(
                               context,
                               Icons.check_box,
                               'To-Do List',
-                                  () => _navigate(context,
+                              () => _navigate(context,
                                   const ToDoListPage())), // Add the To-Do List button
                         ],
                       ),
                     ),
+=======
+                    SizedBox(height: 70),
+                    Center(
+                      child: Text(
+                        "DashBoard",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+>>>>>>> 9f493fd67ae1dc46bdb4a8107086bc362041e440
                   ],
                 ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.15,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        color: Colors.blue.shade800,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ProfilePage()),
+                                      );
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage:
+                                      AssetImage('assets/profile.jpg'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Hi, Welcome Back',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        isLoading ? 'Loading...' : name,
+                                        style:
+                                        const TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _buildInfoCard('Student ID',
+                                      isLoading ? 'Loading...' : studentId),
+                                  _buildInfoCard('Semester', 'Spring 2024'),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: const LinearProgressIndicator(
+                                  value: 0.26,
+                                  backgroundColor: Colors.white24,
+                                  color: Colors.white,
+                                  minHeight: 10,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                child: const Text('Completed 36 Credits (26%)',
+                                    style: TextStyle(color: Colors.blue)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          children: [
+                            _buildGridItem(context, Icons.newspaper, 'Events',
+                                    () => _navigate(context, EventsPage())),
+                            _buildGridItem(context, Icons.people, 'Attendance',
+                                    () => _navigate(context, const AttendancePage())),
+                            _buildGridItem(context, Icons.library_books, 'Library',
+                                    () => _navigate(context, const LibraryPage())),
+                            _buildGridItem(
+                                context,
+                                Icons.calendar_today,
+                                'Calendar',
+                                    () => _navigate(
+                                    context, const AcademicCalendarPage())),
+                            _buildGridItem(
+                                context,
+                                Icons.calculate,
+                                'CGPA Calculator',
+                                    () => _navigate(
+                                    context, const CgpaCalculatorScreen())),
+                            _buildGridItem(context, Icons.book, 'Materials',
+                                    () => _navigate(context, const Materials())),
+                            _buildGridItem(context, Icons.help, 'FAQ',
+                                    () => _navigate(context, FAQScreen())),
+                            _buildGridItem(context, Icons.attach_money, 'Finance',
+                                    () => _navigate(context, const FinancePage())),
+                            _buildGridItem(
+                                context,
+                                Icons.assessment,
+                                'Results',
+                                    () => _navigate(context,
+                                    const ResultsPage())),
+                            _buildGridItem(
+                                context,
+                                Icons.check_box,
+                                'To-Do List',
+                                    () => _navigate(context,
+                                    const ToDoListPage())),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
