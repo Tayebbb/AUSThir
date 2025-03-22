@@ -13,7 +13,6 @@ import 'materials.dart';
 import 'profilePage.dart';
 import 'results.dart';
 import 'todo_list.dart';
-import 'library.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,7 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchUserData() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
-
     if (currentUser != null) {
       try {
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -52,9 +50,11 @@ class _HomePageState extends State<HomePage> {
           });
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load user data: $e')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to load user data: $e')),
+          );
+        }
       }
     }
   }
@@ -64,8 +64,6 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: () async {
         DateTime now = DateTime.now();
-
-        // If back is pressed twice within 2 seconds, exit the app
         if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
           lastPressed = now;
           ScaffoldMessenger.of(context).showSnackBar(
@@ -74,10 +72,8 @@ class _HomePageState extends State<HomePage> {
               duration: Duration(seconds: 2),
             ),
           );
-          return false; // Do not exit yet
+          return false;
         }
-
-        // Exit the app
         exit(0);
       },
       child: Scaffold(
@@ -91,13 +87,11 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.15,
                 color: Colors.indigo[900],
-                child: const Column(
+                child: Column(
                   children: [
-<<<<<<< HEAD
                     Card(
                       elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       color: Colors.blue.shade800,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -110,15 +104,12 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ProfilePage()),
+                                      MaterialPageRoute(builder: (context) => const ProfilePage()),
                                     );
                                   },
                                   child: const CircleAvatar(
                                     radius: 30,
-                                    backgroundImage:
-                                        AssetImage('assets/profile.jpg'),
+                                    backgroundImage: AssetImage('assets/profile.jpg'),
                                   ),
                                 ),
                                 const SizedBox(width: 10),
@@ -130,11 +121,9 @@ class _HomePageState extends State<HomePage> {
                                             color: Colors.white,
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)),
-                                    // Show loading text until data is fetched
                                     Text(
                                       isLoading ? 'Loading...' : name,
-                                      style:
-                                          const TextStyle(color: Colors.white),
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -144,8 +133,7 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildInfoCard('Student ID',
-                                    isLoading ? 'Loading...' : studentId),
+                                _buildInfoCard('Student ID', isLoading ? 'Loading...' : studentId),
                                 _buildInfoCard('Semester', 'Spring 2024'),
                               ],
                             ),
@@ -173,68 +161,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        children: [
-                          _buildGridItem(context, Icons.newspaper, 'Events',
-                              () => _navigate(context, const EventsPage())),
-                          _buildGridItem(context, Icons.newspaper, 'Events',
-                              () => _navigate(context, const LibraryPage())),
-                          _buildGridItem(
-                              context,
-                              Icons.check_circle,
-                              'Attendance',
-                              () => _navigate(context, const AttendancePage())),
-                          _buildGridItem(
-                              context,
-                              Icons.calendar_today,
-                              'Calendar',
-                              () => _navigate(
-                                  context, const AcademicCalendarPage())),
-                          _buildGridItem(
-                              context,
-                              Icons.calculate,
-                              'CGPA Calculator',
-                              () => _navigate(
-                                  context, const CgpaCalculatorScreen())),
-                          _buildGridItem(context, Icons.book, 'Materials',
-                              () => _navigate(context, const Materials())),
-                          _buildGridItem(context, Icons.help, 'FAQ',
-                              () => _navigate(context, FAQScreen())),
-                          _buildGridItem(context, Icons.attach_money, 'Finance',
-                              () => _navigate(context, const FinancePage())),
-                          _buildGridItem(
-                              context,
-                              Icons.assessment,
-                              'Results',
-                              () => _navigate(context,
-                                  const ResultsPage())), // Add the Results button
-                          _buildGridItem(
-                              context,
-                              Icons.check_box,
-                              'To-Do List',
-                              () => _navigate(context,
-                                  const ToDoListPage())), // Add the To-Do List button
-                        ],
-                      ),
-                    ),
-=======
-                    SizedBox(height: 70),
-                    Center(
-                      child: Text(
-                        "DashBoard",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
->>>>>>> 9f493fd67ae1dc46bdb4a8107086bc362041e440
                   ],
                 ),
               ),
@@ -254,131 +180,31 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                     children: [
-                      Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        color: Colors.blue.shade800,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ProfilePage()),
-                                      );
-                                    },
-                                    child: const CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage:
-                                      AssetImage('assets/profile.jpg'),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text('Hi, Welcome Back',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold)),
-                                      Text(
-                                        isLoading ? 'Loading...' : name,
-                                        style:
-                                        const TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  _buildInfoCard('Student ID',
-                                      isLoading ? 'Loading...' : studentId),
-                                  _buildInfoCard('Semester', 'Spring 2024'),
-                                ],
-                              ),
-                              const SizedBox(height: 16),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: const LinearProgressIndicator(
-                                  value: 0.26,
-                                  backgroundColor: Colors.white24,
-                                  color: Colors.white,
-                                  minHeight: 10,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                padding: const EdgeInsets.all(8),
-                                child: const Text('Completed 36 Credits (26%)',
-                                    style: TextStyle(color: Colors.blue)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          children: [
-                            _buildGridItem(context, Icons.newspaper, 'Events',
-                                    () => _navigate(context, EventsPage())),
-                            _buildGridItem(context, Icons.people, 'Attendance',
-                                    () => _navigate(context, const AttendancePage())),
-                            _buildGridItem(context, Icons.library_books, 'Library',
-                                    () => _navigate(context, const LibraryPage())),
-                            _buildGridItem(
-                                context,
-                                Icons.calendar_today,
-                                'Calendar',
-                                    () => _navigate(
-                                    context, const AcademicCalendarPage())),
-                            _buildGridItem(
-                                context,
-                                Icons.calculate,
-                                'CGPA Calculator',
-                                    () => _navigate(
-                                    context, const CgpaCalculatorScreen())),
-                            _buildGridItem(context, Icons.book, 'Materials',
-                                    () => _navigate(context, const Materials())),
-                            _buildGridItem(context, Icons.help, 'FAQ',
-                                    () => _navigate(context, FAQScreen())),
-                            _buildGridItem(context, Icons.attach_money, 'Finance',
-                                    () => _navigate(context, const FinancePage())),
-                            _buildGridItem(
-                                context,
-                                Icons.assessment,
-                                'Results',
-                                    () => _navigate(context,
-                                    const ResultsPage())),
-                            _buildGridItem(
-                                context,
-                                Icons.check_box,
-                                'To-Do List',
-                                    () => _navigate(context,
-                                    const ToDoListPage())),
-                          ],
-                        ),
-                      ),
+                      _buildGridItem(context, Icons.newspaper, 'Events',
+                              () => _navigate(context, const EventsPage())),
+                      _buildGridItem(context, Icons.library_books, 'Library',
+                              () => _navigate(context, const LibraryPage())),
+                      _buildGridItem(context, Icons.check_circle, 'Attendance',
+                              () => _navigate(context, const AttendancePage())),
+                      _buildGridItem(context, Icons.calendar_today, 'Calendar',
+                              () => _navigate(context, const AcademicCalendarPage())),
+                      _buildGridItem(context, Icons.calculate, 'CGPA Calculator',
+                              () => _navigate(context, const CgpaCalculatorScreen())),
+                      _buildGridItem(context, Icons.book, 'Materials',
+                              () => _navigate(context, const Materials())),
+                      _buildGridItem(context, Icons.help, 'FAQ',
+                              () => _navigate(context, const FAQScreen())),
+                      _buildGridItem(context, Icons.attach_money, 'Finance',
+                              () => _navigate(context, const FinancePage())),
+                      _buildGridItem(context, Icons.assessment, 'Results',
+                              () => _navigate(context, const ResultsPage())),
+                      _buildGridItem(context, Icons.check_box, 'To-Do List',
+                              () => _navigate(context, const ToDoListPage())),
                     ],
                   ),
                 ),
@@ -395,15 +221,12 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: const TextStyle(color: Colors.white70)),
-        Text(value,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ],
     );
   }
 
-  Widget _buildGridItem(
-      BuildContext context, IconData icon, String label, VoidCallback onTap) {
+  Widget _buildGridItem(BuildContext context, IconData icon, String label, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
